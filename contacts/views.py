@@ -22,8 +22,8 @@ def add_contact(request):
     return render(request, "contacts/add_contact.html", {"form": form})
 
 
-def edit_contact(request, pk):
-    contact = get_object_or_404(Contact, pk=pk)
+def edit_contact(request, contact_pk):
+    contact = get_object_or_404(Contact, pk=contact_pk)
     if request.method == 'GET':
         form = ContactForm(instance=contact)
     else:

@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', contacts_views.list_contacts, name='list_contacts'),
     path('contacts/add/', contacts_views.add_contact, name='add_contact'),
-    path('contacts/<int:pk>/edit/',
+    path('contacts/<int:contact_pk>/edit/',
          contacts_views.edit_contact,
          name='edit_contact'),
     path('contacts/<int:pk>/delete/',
