@@ -53,3 +53,22 @@ def delete_contact(request, pk):
         return redirect(to="list_contacts")
 
     return render(request, "contacts/delete_contact.html", {"contact": contact})
+
+
+def add_note(request, contact_pk):
+    # get the associated contact
+    contact = get_object_or_404(Contact, pk=contact_pk)
+    # We need a form!
+
+    form = NoteForm(data=request.POST)
+    if form.is_valid():
+        note = form.save(
+            commit=False
+        )  # this step lets us save the object, but NOT to rhe database yet!
+        note.contact = contact  # that's so we can do THIS step, associating the note with the contact
+        note.save()  # here is where we save the note with the relationship to contact and everything!
+        return redirect(to="contact_detail", pk=contact.pk)
+
+    return render(
+        request, "contacts/contact_detail.html", {"note_form": form, "contact": contact}
+    )
